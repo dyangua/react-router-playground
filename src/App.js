@@ -1,12 +1,59 @@
 import React, { Component } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+const Home = () => <h1>Home</h1>;
+const About = () => <h1>About</h1>;
+const Topic = ({ match }) =>
+  console.log("match", match) || (
+    <div>
+      <h3>{match.params.topicId}</h3>
+    </div>
+  );
+
+const Topics = ({ match }) => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to={`${match.url}/rendering`}>Rendering</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/components`}>Components</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/props`}>Props v state</Link>
+        </li>
+      </ul>
+
+      <Route path="/topics/:topicId" component={Topic} />
+      <Route exact path={match.url} render={() => <h3>Select a route</h3>} />
+    </div>
+  );
+};
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>Playground</h1>
-      </div>
+      <Router>
+        <div>
+          <h1>React router 101</h1>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/topics">Topics</Link>
+            </li>
+          </ul>
+          <hr />
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/topics" component={Topics} />
+        </div>
+      </Router>
     );
   }
 }
