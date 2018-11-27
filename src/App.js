@@ -8,8 +8,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h2>Avoid to use component in Route to pass props in a component</h2>
-
+        <h2>
+          Avoid to use component in Route to pass props in a component beacouse
+          is re mount the component
+        </h2>
         <pre>
           {routes.map(({ path, component, MyComponent, Initialdata }) => (
             <Route
